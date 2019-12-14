@@ -14,7 +14,7 @@ class GitUsers extends React.Component {
       activePage: 1,
       perPage: 20,
       totalCount: 0,
-      filterUsers: []
+      filterUsers: ["h"]
     }; //Users empty state
   }
   handlePageChange = pageNumber => {
@@ -35,8 +35,8 @@ class GitUsers extends React.Component {
         // console.log("------------", response.data.items);
         this.setState({
           Users: response.data.items,
-          filterUsers: response.data.items,
-          totalCount: response.data.total_count
+          totalCount: response.data.total_count,
+          filterUsers: response.data.items
         }); //get response data
       })
       .catch(error => {
@@ -52,8 +52,24 @@ class GitUsers extends React.Component {
 
       <div>
         <h1 className="title">Github Users</h1>
+        {/* <div>
+          {this.state.Users.filter(search => {
+            return (search = { search });
+          })}
+          <input type="search">Search...</input>
+        </div> */}
+
+        <div>
+          <input
+            className="search"
+            type="text"
+            placeholder="Search..."
+            name="search"
+          />
+        </div>
+
         <div className="users">
-          {this.state.filterUsers.map(user => {
+          {this.state.Users.map(user => {
             return <GitUser user={user} />;
           })}
         </div>
