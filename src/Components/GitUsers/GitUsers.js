@@ -1,6 +1,7 @@
 import React from "react"; //import react
 import Axios from "axios"; //import axios
 import GitUser from "../GitUser/GitUser";
+import "./style.css";
 
 //class component
 class GitUsers extends React.Component {
