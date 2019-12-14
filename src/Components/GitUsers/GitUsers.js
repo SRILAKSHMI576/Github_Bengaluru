@@ -9,7 +9,13 @@ class GitUsers extends React.Component {
   constructor() {
     super();
 
-    this.state = { Users: [], activePage: 1, perPage: 20, totalCount: 0 }; //Users empty state
+    this.state = {
+      Users: [],
+      activePage: 1,
+      perPage: 20,
+      totalCount: 0,
+      filterUsers: []
+    }; //Users empty state
   }
   handlePageChange = pageNumber => {
     console.log(`active page is ${pageNumber}`);
@@ -29,6 +35,7 @@ class GitUsers extends React.Component {
         // console.log("------------", response.data.items);
         this.setState({
           Users: response.data.items,
+          filterUsers: response.data.items,
           totalCount: response.data.total_count
         }); //get response data
       })
@@ -44,8 +51,9 @@ class GitUsers extends React.Component {
       //apply map() method
 
       <div>
+        <h1 className="title">Github Users</h1>
         <div className="users">
-          {this.state.Users.map(user => {
+          {this.state.filterUsers.map(user => {
             return <GitUser user={user} />;
           })}
         </div>
