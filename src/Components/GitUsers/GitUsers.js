@@ -14,8 +14,9 @@ class GitUsers extends React.Component {
       activePage: 1,
       perPage: 20,
       totalCount: 0,
+      search: "Search...",
       filterUsers: ["h"]
-    }; //Users empty state
+    };
   }
   handlePageChange = pageNumber => {
     console.log(`active page is ${pageNumber}`);
@@ -24,6 +25,11 @@ class GitUsers extends React.Component {
     });
   };
 
+  handleSearch = event => {
+    this.setState({
+      search: event.target.value
+    });
+  };
   getUser = () => {
     Axios.get(
       "https://api.github.com/search/users?q=location:Bengaluru&page=" +
@@ -63,8 +69,9 @@ class GitUsers extends React.Component {
           <input
             className="search"
             type="text"
-            placeholder="Search..."
+            value={this.state.search}
             name="search"
+            onChange={this.handleSearch}
           />
         </div>
 
