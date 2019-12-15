@@ -14,8 +14,7 @@ class GitUsers extends React.Component {
       activePage: 1,
       perPage: 20,
       totalCount: 0,
-      search: "Search...",
-      filterUsers: ["h"]
+      search: "Search..."
     };
   }
   handlePageChange = pageNumber => {
@@ -58,12 +57,6 @@ class GitUsers extends React.Component {
 
       <div>
         <h1 className="title">Github Users</h1>
-        {/* <div>
-          {this.state.Users.filter(search => {
-            return (search = { search });
-          })}
-          <input type="search">Search...</input>
-        </div> */}
 
         <div>
           <input
