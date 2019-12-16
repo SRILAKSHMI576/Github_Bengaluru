@@ -4,17 +4,23 @@ import GitUser from "../GitUser/GitUser";
 import "./style.css";
 import Pagination from "react-js-pagination";
 
-//class component
+function searchingFor(search) {
+  return function(x) {
+    return x.login.toLowerCase().includes(search.toLowerCase()) || false;
+  };
+}
+
 class GitUsers extends React.Component {
   constructor() {
     super();
 
     this.state = {
       Users: [],
+
       activePage: 1,
       perPage: 20,
       totalCount: 0,
-      search: "Search..."
+      search: ""
     };
   }
   handlePageChange = pageNumber => {
@@ -24,7 +30,7 @@ class GitUsers extends React.Component {
     });
   };
 
-  handleSearch = event => {
+  searchHandler = event => {
     this.setState({
       search: event.target.value
     });
@@ -45,13 +51,14 @@ class GitUsers extends React.Component {
         }); //get response data
       })
       .catch(error => {
-        console.log(error); //show error
+        console.log(error);
       });
   };
   componentDidMount() {
     this.getUser();
   }
   render() {
+    const { search } = this.state;
     return (
       //apply map() method
 
@@ -62,14 +69,13 @@ class GitUsers extends React.Component {
           <input
             className="search"
             type="text"
-            value={this.state.search}
+            value={search}
             name="search"
-            onChange={this.handleSearch}
+            onChange={this.searchHandler}
           />
         </div>
-
         <div className="users">
-          {this.state.Users.map(user => {
+          {this.state.Users.filter(searchingFor(search)).map(user => {
             return <GitUser user={user} />;
           })}
         </div>
